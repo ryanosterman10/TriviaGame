@@ -9,6 +9,7 @@ body{
 .jumbotron{
 	opacity: 0.85;
 	margin-top: 120px;
+	margin-bottom: 200px;
 }
 
 button{

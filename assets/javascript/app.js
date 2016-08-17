@@ -84,8 +84,70 @@ function stop(){
 	clearInterval(counter);
 }
 
-function displayCurrentQuestion(){
+$(document).ready(function(){
 
+	displayCurrentQuestion();
+	
+	// run();
+
+	$(this).find('.triviaMessage').hide();
+
+	$(this).find('.nextButton').on('click', function(){
+		if(!triviaOver){
+
+			value = $("input[type='radio']:checked").val();
+
+			if(value == undefined){
+				$(document).find('.triviaMessage').text("Please select an answer");
+				$(document).find('.triviaMessage').show();
+			}
+			else{
+				$(document).find('.triviaMessage').hide();
+				if(value == questions[currentQuestion].correctAnswer){
+					correctAnswers++;
+				}
+
+				currentQuestion++;
+
+				if(currentQuestion < questions.length){
+					displayCurrentQuestion();
+				}
+				else{
+					showScore();
+					$(document).find('.nextButton').text("Play Again?");
+					triviaOver = true;
+				}
+			}
+		}
+
+		else{
+			triviaOver = false;
+			$(document).find('.nextButton').text("Next Question");
+			resetTrivia();
+			displayCurrentQuestion();
+			hideScore();
+		}
+
+	});
+
+});		// document.ready close
+
+function displayCurrentQuestion(){
+	var question = questions[currentQuestion].question;
+	var questionClass = $(document).find('#trivia-container > .question');
+	var answerList = $(document).find('#trivia-container > .answerList');
+	var numAnswers = questions[currentQuestion].choices.length;
+
+	$(questionClass).text(question);
+	console.log(question);
+
+	$(answerList).find('li').remove();
+
+	var choice;
+	for(i=0; i < numAnswers; i++) {
+		choice = questions[currentQuestion].choices[i];
+		$('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(answerList);
+	}
 }
 
 function resetTrivia(){
@@ -95,16 +157,62 @@ function resetTrivia(){
 }
 
 function showScore(){
-
+	$(document).find('#trivia-container > .result').text("You correctly answered: " + correctAnswers + " out of: " + questions.length);
+	$(document).find('#trivia-container > .result').show();
 }
 
 function hideScore(){
-
+	$(document).find('.result').hide();
 }
 
 
-$(document).ready(function(){
+// $(document).ready(function(){
 
-	run();
+// 	displayCurrentQuestion();
+	
+// 	// run();
 
-});		// document.ready close
+// 	$(this).find('.triviaMessage').hide();
+
+// 	$(this).find('.nextButton').on('click', function(){
+// 		if(!triviaOver){
+
+// 			value = $("input[type='radio']:checked").val();
+
+// 			if(value == undefined){
+// 				$(document).find('.triviaMessage').text("Please select an answer");
+// 				$(document).find('.triviaMessage').show();
+// 			}
+// 			else{
+// 				$(document).find('.triviaMessage').hide();
+// 				if(value == questions[currentQuestion].correctAnswer){
+// 					correctAnswers++;
+// 				}
+
+// 				currentQuestion++;
+
+// 				if(currentQuestion < qestions.length){
+// 					displayCurrentQuestion();
+// 				}
+// 				else{
+// 					showScore();
+// 					$(document).find('.nextButton').text("Play Again?");
+// 					triviaOver = true;
+// 				}
+// 			}
+// 		}
+
+// 		else{
+// 			triviaOver = false;
+// 			$(document).find('.nextButton').text("Next Question");
+// 			resetTrivia();
+// 			displayCurrentQuestion();
+// 			hideScore();
+// 		}
+
+// 	});
+
+// });		// document.ready close
+
+
+
