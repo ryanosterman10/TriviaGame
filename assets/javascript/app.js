@@ -1,64 +1,54 @@
 var questions = [
 
 	{
-		question: "Toy Story Q",
-		choices: ["A", "B", "C", "D"],
+		question: "Toy Story: Which of these is not a phrase that Woody says when his string is pulled?",
+		choices: ["A: Someone's poisoned the water hole!", "B: You're my favorite deputy!", "C: Reach for the stars!", "D: There's a snake in my boot!"],
+		correctAnswer: 2
+	},
+	{
+		question: "A Bug's Life: Who was the leader of the grasshoppers and the main antagonist?",
+		choices: ["A: Flik", "B: Thumper", "C: Dot", "D: Hopper"],
+		correctAnswer: 3
+	},
+	{
+		question: "Toy Story 2: What is the name of the cowgirl that joins Woody and the gang throughout this movie?",
+		choices: ["A: Wendy", "B: Jessie", "C: Andy", "D: Mrs. Potato Head"],
+		correctAnswer: 1
+	},
+	{
+		question: "Monster's Inc.: What is Sulley's full name?",
+		choices: ["A: Suller P. Claws", "B: Sullerman P. Rogers", "C: James P. Sullivan", "D: Sullivan P. Boo"],
+		correctAnswer: 2
+	},
+	{
+		question: "Finding Nemo: What did the younger fish call the 'boat' when the first saw it?",
+		choices: ["A: a butt", "B: a bubble", "C: a barnacle", "D: a buoy"],
 		correctAnswer: 0
 	},
 	{
-		question: "A Bug's Life Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer: 0
+		question: "The Incredibles: Which of the following superhuman abilities is NOT possessed by any of the members of the Parr family?",
+		choices: ["A: super-speed", "B: super-strength", "C: flight", "D: invisibility"],
+		correctAnswer: 2
 	},
 	{
-		question: "Toy Story 2 Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer: 0
+		question: "WALL-E: When the audience first meets WALL-E, he is tirelessly cleaning up the masses of garbage left behind on Earth. Who or what is his one companion?",
+		choices: ["A: a mouse", "B: WALL-A", "C: an old human janitor", "D: a cockroach"],
+		correctAnswer: 3
 	},
 	{
-		question: "Monster's Inc. Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer: 0
+		question: "Up: What is the name of the 13-foot-tall flightless bird that Carl and Russel meet along their journey?",
+		choices: ["A: Dug", "B: Earl", "C: Kevin", "D: Snipe"],
+		correctAnswer: 2
 	},
 	{
-		question: "Finding Nemo Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer: 0
+		question: "Toy Story 3: Why is Andy leaving home?",
+		choices: ["A: he got a new job", "B: he is going off to college", "C: he is joining the military", "D: he is running away"],
+		correctAnswer: 1
 	},
 	{
-		question: "The Incredibles Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer: 0
-	},
-	{
-		question: "WALL-E Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer: 0
-	},
-	{
-		question: "Up Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer: 0
-	},
-	{
-		question: "Toy Story 3 Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer: 0
-	},
-	{
-		question: "Monsters University Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer: 0
-	},
-	{
-		question: "Inside Out Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer: 0
-	},
-	{
-		question: "Finding Dory Q",
-		choices: ["A", "B", "C", "D"],
-		correctAnswer:0
+		question: "Inside Out: Which of the following is NOT an emotion depicted in the movie?",
+		choices: ["A: Joy", "B: Trust", "C: Anger", "D: Fear"],
+		correctAnswer: 1
 	}
 ];
 
@@ -66,6 +56,7 @@ var currentQuestion = 0;
 var correctAnswers = 0;
 var triviaOver = false;
 var countDown = 15;
+var skippedAnswers = 0;
 
 function run(){
 	counter = setInterval(decrement, 1000);
@@ -88,7 +79,7 @@ $(document).ready(function(){
 
 	displayCurrentQuestion();
 	
-	// run();
+	run();
 
 	$(this).find('.triviaMessage').hide();
 
@@ -108,11 +99,15 @@ $(document).ready(function(){
 				}
 
 				currentQuestion++;
+				stop();
+				countDown = 16;
+				run();
 
 				if(currentQuestion < questions.length){
 					displayCurrentQuestion();
 				}
 				else{
+					stop();
 					showScore();
 					$(document).find('.nextButton').text("Play Again?");
 					triviaOver = true;
@@ -126,6 +121,7 @@ $(document).ready(function(){
 			resetTrivia();
 			displayCurrentQuestion();
 			hideScore();
+			run();
 		}
 
 	});
@@ -157,62 +153,12 @@ function resetTrivia(){
 }
 
 function showScore(){
-	$(document).find('#trivia-container > .result').text("You correctly answered: " + correctAnswers + " out of: " + questions.length);
+	$(document).find('#trivia-container > .result').text("You correctly answered: " + correctAnswers + " out of " + questions.length);
 	$(document).find('#trivia-container > .result').show();
 }
 
 function hideScore(){
 	$(document).find('.result').hide();
 }
-
-
-// $(document).ready(function(){
-
-// 	displayCurrentQuestion();
-	
-// 	// run();
-
-// 	$(this).find('.triviaMessage').hide();
-
-// 	$(this).find('.nextButton').on('click', function(){
-// 		if(!triviaOver){
-
-// 			value = $("input[type='radio']:checked").val();
-
-// 			if(value == undefined){
-// 				$(document).find('.triviaMessage').text("Please select an answer");
-// 				$(document).find('.triviaMessage').show();
-// 			}
-// 			else{
-// 				$(document).find('.triviaMessage').hide();
-// 				if(value == questions[currentQuestion].correctAnswer){
-// 					correctAnswers++;
-// 				}
-
-// 				currentQuestion++;
-
-// 				if(currentQuestion < qestions.length){
-// 					displayCurrentQuestion();
-// 				}
-// 				else{
-// 					showScore();
-// 					$(document).find('.nextButton').text("Play Again?");
-// 					triviaOver = true;
-// 				}
-// 			}
-// 		}
-
-// 		else{
-// 			triviaOver = false;
-// 			$(document).find('.nextButton').text("Next Question");
-// 			resetTrivia();
-// 			displayCurrentQuestion();
-// 			hideScore();
-// 		}
-
-// 	});
-
-// });		// document.ready close
-
 
 

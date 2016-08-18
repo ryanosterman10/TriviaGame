@@ -22,3 +22,26 @@ button{
 	padding: 10px;
 	border-radius: 5px;
 }
+
+.question{
+	font-size: 2em;
+}
+
+.answerList{
+	font-size: 1.5em;
+}
+
+.triviaMessage{
+	color: red;
+	margin-bottom: 20px;
+}
+
+.result{
+	color: green;
+	font-size: 1.5em;
+	margin-bottom: 10px;
+}
+
+.nextButton{
+	font-size: 1.5em;
+}
