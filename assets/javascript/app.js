@@ -1,7 +1,7 @@
 var questions = [
 
 	{
-		question: "Toy Story: Which of these is not a phrase that Woody says when his string is pulled?",
+		question: "Toy Story: Which of these is NOT a phrase that Woody says when his string is pulled?",
 		choices: ["A: Someone's poisoned the water hole!", "B: You're my favorite deputy!", "C: Reach for the stars!", "D: There's a snake in my boot!"],
 		correctAnswer: 2
 	},
