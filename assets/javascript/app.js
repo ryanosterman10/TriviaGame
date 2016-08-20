@@ -83,11 +83,13 @@ function stop(){
 
 $(document).ready(function(){
 
+	$('.timer').hide();
 	$('.nextButton').hide();
 
 	$('.startButton').on('click', function(){
 
 		$('.startButton').hide();
+		$('.timer').show();
 		$('.nextButton').show();
 
 	displayCurrentQuestion();
