@@ -95,6 +95,8 @@ $(document).ready(function(){
 			else{
 				$(document).find('.triviaMessage').hide();
 				if(value == questions[currentQuestion].correctAnswer){
+					$(document).find('.triviaMessage').text("Correct!");
+					$(document).find('.triviaMessage').show();
 					correctAnswers++;
 				}
 
