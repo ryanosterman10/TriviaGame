@@ -68,6 +68,12 @@ function decrement(){
 	if(countDown === 0){
 		stop();
 		alert("Time is up! Moving on to the next question...");
+		currentQuestion++;
+		skippedAnswers++;
+		displayCurrentQuestion();
+		stop();
+		countDown = 16;
+		run();
 	}
 }
 
@@ -77,13 +83,20 @@ function stop(){
 
 $(document).ready(function(){
 
+	$('.nextButton').hide();
+
+	$('.startButton').on('click', function(){
+
+		$('.startButton').hide();
+		$('.nextButton').show();
+
 	displayCurrentQuestion();
 	
 	run();
 
-	$(this).find('.triviaMessage').hide();
+	$(document).find('.triviaMessage').hide();
 
-	$(this).find('.nextButton').on('click', function(){
+	$(document).find('.nextButton').on('click', function(){
 		if(!triviaOver){
 
 			value = $("input[type='radio']:checked").val();
@@ -128,6 +141,8 @@ $(document).ready(function(){
 
 	});
 
+});
+
 });		// document.ready close
 
 function displayCurrentQuestion(){
@@ -155,7 +170,8 @@ function resetTrivia(){
 }
 
 function showScore(){
-	$(document).find('#trivia-container > .result').text("You correctly answered: " + correctAnswers + " out of " + questions.length);
+	$(document).find('#trivia-container > .result').html("You correctly answered: " + correctAnswers + " out of " + questions.length + "<br>");
+	$(document).find('#trivia-container > .result').append("You skipped: " + skippedAnswers + " out of " + questions.length);
 	$(document).find('#trivia-container > .result').show();
 }
 
